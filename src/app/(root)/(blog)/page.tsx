@@ -1,3 +1,9 @@
+import { PageTitle } from "@/componets/ui/PageTitle";
+
 export default function BlogPage() {
-  return <>Page for Blog</>;
+  return (
+    <>
+      <PageTitle title="Welcome to Skipton Blog" className="bg-light-blue" />
+    </>
+  );
 }
