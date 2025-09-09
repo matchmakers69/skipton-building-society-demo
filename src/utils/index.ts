@@ -1,0 +1,1 @@
+export { fontsClassName } from "./fonts";

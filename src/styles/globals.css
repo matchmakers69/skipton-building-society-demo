@@ -1,0 +1,200 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+:root {
+  --body: #f8f9fc;
+  --no-decoration: "none";
+  --thin-text: 300;
+  --regular-text: 400;
+  --semibold-text: 600;
+  --bold-text: 700;
+  --grey-color: "#2f3237";
+  --dark-grey-color: "#1d1e20";
+
+  --container-max-width-sm: 54rem;
+  --container-max-width-md: 72rem;
+  --container-max-width-lg: 96rem;
+  --container-max-width-xl: 114rem;
+  --container-max-width-2xl: 132rem;
+
+  --container-narrow-max-width-sm: 54rem;
+  --container-narrow-max-width-md: 64rem;
+  --container-narrow-max-width-lg: 72rem;
+  --container-narrow-max-width-2xl: 90rem;
+}
+
+@theme {
+  --font-roboto:
+    var(--font-roboto), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-roboto-condensed:
+    var(--font-roboto-condensed), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+
+  --font-weight-thin-text: 300;
+  --font-weight-regular-text: 400;
+  --font-weight-semibold-text: 600;
+
+  --text-xs: 1.2rem;
+  --text-base: 1.4rem;
+  --text-sm: 1.8rem;
+  --text-md: 2.2rem;
+  --text-lg: 2.6rem;
+  --text-xl: 3rem;
+  --text-2xl: 4rem;
+
+  --color-dark-red: #e13404;
+  --color-medium-grey: #cccccc;
+  --color-text-grey: #a8a8a8;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-ring-dark: #2a3132;
+  --color-light-blue: #1462a8;
+  --color-dark-navy: #2b2c3b;
+  --color-dark-grey: #272a2d;
+}
+
+@utility flex-center {
+  @apply flex items-center justify-center;
+}
+
+@layer components {
+  .wrapper {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (min-width: 640px) {
+      max-width: var(--container-max-width-sm);
+    }
+    @media (min-width: 768px) {
+      max-width: var(--container-max-width-md);
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+    @media (min-width: 992px) {
+      max-width: var(--container-max-width-lg);
+    }
+    @media (min-width: 1200px) {
+      max-width: var(--container-max-width-xl);
+    }
+    @media (min-width: 1400px) {
+      max-width: var(--container-max-width-2xl);
+    }
+  }
+
+  .wrapper-narrow {
+    max-width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (min-width: 640px) {
+      max-width: var(--container-narrow-max-width-sm);
+    }
+    @media (min-width: 768px) {
+      max-width: var(--container-narrow-max-width-md);
+    }
+    @media (min-width: 992px) {
+      max-width: var(--container-narrow-max-width-lg);
+    }
+    @media (min-width: 1200px) {
+      max-width: var(--container-narrow-max-width-2xl);
+    }
+  }
+
+  .card {
+    @apply border-light-blue w-full max-w-[100%] rounded-2xl border-3 bg-white p-14 transition-colors duration-300 hover:border-black sm:max-w-[56rem] md:max-w-[60rem] lg:max-w-[70rem];
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+}
+
+@layer base {
+  html {
+    font-size: 62.5%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  html,
+  body {
+    width: 100%;
+    min-height: 100%;
+    overscroll-behavior: none;
+    scroll-behavior: auto;
+  }
+
+  body {
+    padding: 0;
+    margin: 0;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    font-family: var(--font-roboto);
+    font-weight: var(--regular-text);
+    background-color: var(--body);
+    color: var(--grey-color);
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  a {
+    text-decoration: var(--no-decoration);
+    color: inherit;
+  }
+  button {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1;
+    font-family: var(--font-roboto);
+    color: var(--dark-grey-color);
+    font-weight: var(--semibold-text);
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 {
+    font-weight: var(--bold-text);
+    @apply text-[3rem] text-white sm:text-[3.4rem] md:text-[3.6rem] lg:text-[4rem] xl:text-[4.4rem];
+  }
+
+  h2 {
+    @apply text-[2.6rem] sm:text-[3rem] md:text-[3.2rem] lg:text-[3.6rem] xl:text-[4rem];
+  }
+
+  h3 {
+    @apply text-[2.2rem] sm:text-[2.6rem] md:text-[2.8rem] lg:text-[3.2rem] xl:text-[3.6rem];
+  }
+
+  h4 {
+    @apply text-[1.8rem] sm:text-[2.2rem] md:text-[2.4rem] lg:text-[2.8rem] xl:text-[3.2rem];
+  }
+
+  h5 {
+    @apply text-[1.6rem] sm:text-[1.8rem] md:text-[2rem] lg:text-[2.2rem] xl:text-[2.4rem];
+  }
+
+  h6 {
+    @apply text-[1.4rem] sm:text-[1.6rem] md:text-[1.8rem] lg:text-[2rem] xl:text-[2.2rem];
+  }
+
+  p {
+    @apply text-[1.4rem] sm:text-[1.6rem];
+  }
+}
