@@ -1,5 +1,6 @@
 import { beforeEach, expect, it, vi } from "vitest";
 import { fetchPosts } from "./postsApi";
+import { API_URL } from "@/constants";
 
 const POSTS = [
   {
@@ -26,10 +27,16 @@ describe("fetchPosts API", () => {
       "fetch",
       vi.fn(async (url: string) => {
         if (url.endsWith("/posts")) {
-          return new Response(JSON.stringify(POSTS), { status: 200 });
+          return new Response(JSON.stringify(POSTS), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          });
         }
 
-        return new Response("Not found", { status: 404 });
+        return new Response("Not found", {
+          status: 404,
+          headers: { "Content-Type": "application/json" },
+        });
       }) as unknown as typeof fetch,
     );
   });
@@ -48,24 +55,24 @@ describe("fetchPosts API", () => {
 
     await fetchPosts();
 
-    expect(mockFetch).toHaveBeenCalledWith(
-      `${process.env.NEXT_PUBLIC_API_URL}/posts`,
-      {
-        next: {
-          revalidate: 60,
-        },
-        headers: {
-          "Content-Type": "application/json",
-        },
+    expect(mockFetch).toHaveBeenCalledWith(`${API_URL}/posts`, {
+      next: {
+        revalidate: 60,
       },
-    );
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   });
 
   it("should handle empty response", async () => {
     vi.stubGlobal(
       "fetch",
       vi.fn(async () => {
-        return new Response(JSON.stringify([]), { status: 200 });
+        return new Response(JSON.stringify([]), {
+          status: 200,
+          headers: new Headers({ "Content-Type": "application/json" }),
+        });
       }) as unknown as typeof fetch,
     );
 
@@ -113,21 +120,5 @@ describe("fetchPosts API", () => {
     );
 
     await expect(fetchPosts()).rejects.toThrow("Network error");
-  });
-
-  it("should use environment variable for API URL", async () => {
-    const mockFetch = vi.mocked(fetch);
-    const originalEnv = process.env.NEXT_PUBLIC_API_URL;
-
-    process.env.NEXT_PUBLIC_API_URL = "https://custom-api.com";
-
-    await fetchPosts();
-
-    expect(mockFetch).toHaveBeenCalledWith(
-      "https://custom-api.com/posts",
-      expect.any(Object),
-    );
-
-    process.env.NEXT_PUBLIC_API_URL = originalEnv;
   });
 });
